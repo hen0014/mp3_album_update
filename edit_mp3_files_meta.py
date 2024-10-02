@@ -20,6 +20,8 @@ def get_args():
     parser.add_argument('-s', '--song', help='set song names from file name', action='store_true')
     #add album art
     parser.add_argument('-art', '--art', help='add album art, add pic to directory and rename pic.jpg', action='store_true')
+    #year
+    parser.add_argument('-y', '--year', help='year', default=None)
     return parser.parse_args()
 
 # function to get a list of mp3 based on get_args --directory
@@ -73,9 +75,11 @@ def set_data(mp3, song_name, args,):
             mp3["TPUB"] = mutagen.id3.TPUB(encoding=3, text=[args.publisher])
         if args.artist:
             mp3["TPE1"] = mutagen.id3.TPE1(encoding=3, text=[args.artist])
+            mp3["TPE2"] = mutagen.id3.TPE2(encoding=3, text=[args.artist])
         if args.art:
             mp3["APIC"] = mutagen.id3.APIC(encoding=3, mime='image/jpeg', type=3, desc=u'Cover', data=open('pic.jpg', 'rb').read())
-
+        if args.year:
+            mp3["TDRC"] = mutagen.id3.TDRC(encoding=3, text=[args.year])
         
         mp3.save()
 
