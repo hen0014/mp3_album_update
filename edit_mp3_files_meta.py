@@ -10,13 +10,13 @@ def get_args():
     parser = argparse.ArgumentParser(description='populate mp3 meta data for album')
     #required argument directory, default pwd
     parser.add_argument('-d', '--directory', help='directory of mp3 files. default pwd', default='pwd')
-    #required argument printer
+    #change artist attribute
     parser.add_argument('-ar', '--artist', help='artist name, "Fisrt Last"', default=None)
-    #option flag to read options from file
+    #change album name attribute
     parser.add_argument('-al', '--album', help='album name', default=None)
-    #debug flag
+    #change publisher attribute
     parser.add_argument('-p', '--publisher', help='publisher name', default=None)
-    #set song names bool
+    #set song names bool -- uses file names
     parser.add_argument('-s', '--song', help='set song names from file name', action='store_true')
     #add album art
     parser.add_argument('-art', '--art', help='add album art, add pic to directory and rename pic.jpg', action='store_true')
@@ -94,4 +94,6 @@ def main():
     mp3_files = get_mp3_files(args.directory)
     #get list of arguments passed
     set_mp3_meta(mp3_files, args)
-main()
+
+if __name__ == '__main__':
+    main()
